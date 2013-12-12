@@ -1,0 +1,16 @@
+#!/bin/bash
+CWD=$(pwd)
+
+
+for file in $(find $CWD -name '*.php' -or -name '*.phtml')
+do
+    echo -e "Checking for errors in file \e[1;32m$file\e[0m"
+    ERROUTPUT=$(php -l $file)
+    if `echo ${ERROUTPUT} | grep "No syntax error" 1>/dev/null 2>&1`
+    then
+        echo -e "\e[1;32m$ERROUTPUT\e[0m"
+    else
+        echo -e "\e[1;31m$ERROUTPUT\e[0m"
+    fi
+done
+
